@@ -10,6 +10,7 @@ public class Sheep : MonoBehaviour
     public float DisperseDistance;
     public float SheepHuddleDistance;
     public float SheepMeanderDistance;
+    public Animator anim;
 
     private NavMeshAgent navAgent;
     private SheepState state;
@@ -25,7 +26,8 @@ public class Sheep : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        navAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        navAgent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
         state = SheepState.Idle;
     }
 
