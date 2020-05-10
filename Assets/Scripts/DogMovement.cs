@@ -25,7 +25,7 @@ public class DogMovement : MonoBehaviour
 
     private float gravity = -12f;
     private float velocity_y;
-    // Start is called before the first frame update
+    
     void Start()
     {
         animator = this.GetComponent<Animator>();
@@ -33,7 +33,6 @@ public class DogMovement : MonoBehaviour
         controller = this.GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Move();
@@ -60,10 +59,8 @@ public class DogMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //animation_speed_percent = (is_running ? 1f : 0.5f) * input_direction.magnitude; // handles the animation speed percent
-        animation_speed_percent = 0.5f * input_direction.magnitude; // handles the animation speed percent
-        // Debug.Log(animation_speed_percent);
+        animation_speed_percent = 1f * input_direction.magnitude; // handles the animation speed percent
+
         animator.SetFloat("speedPercent", animation_speed_percent, speed_smooth_time, Time.deltaTime); // dampen the animation to the target animation
-
-
     }
 }
