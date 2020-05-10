@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class Sheep : MonoBehaviour
 {
-    public float Speed;
     public float VisionRadius;
     public float DisperseDistance;
     public float SheepHuddleDistance;
@@ -34,10 +33,34 @@ public class Sheep : MonoBehaviour
         {
             case SheepState.Idle:
                 // Check for possible flocking
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position, VisionRadius);
-                foreach (Collider col in hitColliders)
-                {
+                int layerMask = 1 << 8; // Sheep only
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position, VisionRadius, layerMask);
 
+                if (hitColliders.Length > 0)
+                {
+                    int closest = -1;
+                    float minDist = -1;
+                    int i = 0;
+
+                    while (i < hitColliders.Length)
+                    {
+                        float dist = (hitColliders[i].transform.position - transform.position).magnitude;
+                        if (closest == -1 || dist < minDist)
+                        {
+                            if (dist > SheepHuddleDistance)
+                            {
+                                minDist = dist;
+                                closest = i;
+                            }
+                        }
+                        i++;
+                    }
+                    if (closest != -1)
+                    {
+                        navAgent.destination = hitColliders[closest].transform.position;
+                        Debug.Log(transform.position + " " + hitColliders[closest].transform.position);
+                        state = SheepState.Flocking;
+                    }
                 }
                 break;
             case SheepState.Dispersing:

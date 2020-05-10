@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SheepManager : MonoBehaviour
 {
-    public List<Sheep> SheepList;
+    private List<Sheep> SheepList;
 
     void Start()
     {
