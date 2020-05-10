@@ -16,6 +16,7 @@ public class DogMovement : MonoBehaviour
     private float speed_smooth_velocity;
     private float curr_speed;
 
+    private bool is_running;
     private float speed;
     private float animation_speed_percent;
 
@@ -48,7 +49,9 @@ public class DogMovement : MonoBehaviour
             this.transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(this.transform.eulerAngles.y, target_rotation, ref turn_smooth_velocity, speed_smooth_time);
         }
 
-        float target_speed = walk_speed * input_direction.magnitude; // the speed we want to reach
+        bool is_running = Input.GetKey(KeyCode.LeftShift); // check if running
+
+        float target_speed = (is_running ? run_speed : walk_speed) * input_direction.magnitude; // the speed we want to reach
 
         curr_speed = Mathf.SmoothDamp(curr_speed, target_speed, ref speed_smooth_velocity, speed_smooth_time); // damp to the target speed from our current speed
 
@@ -58,8 +61,7 @@ public class DogMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-        //animation_speed_percent = (is_running ? 1f : 0.5f) * input_direction.magnitude; // handles the animation speed percent
-        animation_speed_percent = 1f * input_direction.magnitude; // handles the animation speed percent
+        animation_speed_percent = (is_running ? 1f : 0.5f) * input_direction.magnitude; // handles the animation speed percent
 
         animator.SetFloat("speedPercent", animation_speed_percent, speed_smooth_time, Time.deltaTime); // dampen the animation to the target animation
     }

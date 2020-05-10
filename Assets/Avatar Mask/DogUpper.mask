@@ -152,7 +152,7 @@ AvatarMask:
   - m_Path: Plane
     m_Weight: 0
   - m_Path: rig
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: rig/MCH-foot_ik.parent.L
     m_Weight: 0
   - m_Path: rig/MCH-foot_ik.parent.L/foot_ik.L
