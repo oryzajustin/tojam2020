@@ -9,6 +9,7 @@ public class Sheep : MonoBehaviour
     public float VisionRadius;
     public float DisperseDistance;
     public float SheepHuddleDistance;
+    public float SheepMeanderDistance;
 
     private NavMeshAgent navAgent;
     private SheepState state;
@@ -18,6 +19,7 @@ public class Sheep : MonoBehaviour
         Idle,
         Dispersing, // Running away from a position
         Flocking    // Gravitating towards other sheep
+        Meandering  // Walking around randomly
     }
 
     // Start is called before the first frame update
@@ -36,7 +38,7 @@ public class Sheep : MonoBehaviour
                 int layerMask = 1 << 8; // Sheep only
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, VisionRadius, layerMask);
 
-                if (hitColliders.Length > 0)
+                if (hitColliders.Length > 1)    //
                 {
                     int closest = -1;
                     float minDist = -1;
@@ -55,16 +57,22 @@ public class Sheep : MonoBehaviour
                         }
                         i++;
                     }
+
                     if (closest != -1)
                     {
                         navAgent.destination = hitColliders[closest].transform.position;
-                        Debug.Log(transform.position + " " + hitColliders[closest].transform.position);
                         state = SheepState.Flocking;
                     }
+                }
+                else // Meander
+                {
+                    navAgent.destination = transform.position + Random.insideUnitSphere * SheepMeanderDistance;
+                    state = SheepState.Meandering;
                 }
                 break;
             case SheepState.Dispersing:
             case SheepState.Flocking:
+            case SheepState.Meandering:
                 if (navStopped())
                 {
                     state = SheepState.Idle; // Done
