@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DogBark : MonoBehaviour
 {
+    [SerializeField] SheepManager sheep_manager;
     private Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,7 @@ public class DogBark : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetTrigger("bark");
+            sheep_manager.DisperseSheepFromPosition(this.transform.position);
         }
     }
 }
