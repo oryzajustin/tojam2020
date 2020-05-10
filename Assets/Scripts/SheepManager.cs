@@ -5,16 +5,17 @@ using UnityEngine;
 public class SheepManager : MonoBehaviour
 {
     public List<Sheep> SheepList;
-    public float DisperseDistance;
 
-    // Start is called before the first frame update
     void Start()
     {
         SheepList = new List<Sheep>(GetComponentsInChildren<Sheep>());
     }
 
-    public void DisperseSheepFromPosition()
+    public void DisperseSheepFromPosition(Vector3 position)
     {
-
+        foreach (Sheep sheep in SheepList)
+        {
+            sheep.DisperseFromPosition(position);
+        }
     }
 }
