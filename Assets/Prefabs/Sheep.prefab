@@ -128,6 +128,7 @@ MonoBehaviour:
   VisionRadius: 7
   DisperseDistance: 10
   SheepHuddleDistance: 3
+  SheepMeanderDistance: 5
 --- !u!195 &3392370657981986363
 NavMeshAgent:
   m_ObjectHideFlags: 0

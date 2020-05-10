@@ -18,7 +18,7 @@ public class Sheep : MonoBehaviour
     {
         Idle,
         Dispersing, // Running away from a position
-        Flocking    // Gravitating towards other sheep
+        Flocking,    // Gravitating towards other sheep
         Meandering  // Walking around randomly
     }
 
