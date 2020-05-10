@@ -14,6 +14,14 @@ public class FollowCam : MonoBehaviour
         Cursor.visible = false;
     }
 
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     private void LateUpdate()
     {
         MoveCamera();
