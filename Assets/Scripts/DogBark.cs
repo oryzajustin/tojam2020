@@ -9,6 +9,8 @@ public class DogBark : MonoBehaviour
 
     [SerializeField] List<AudioClip> barking_sounds;
     private AudioSource audio_source;
+
+    [SerializeField] ParticleSystem bark_effect;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class DogBark : MonoBehaviour
     {
         int random_bark = Random.Range(0, barking_sounds.Count);
         audio_source.clip = barking_sounds[random_bark];
+        bark_effect.Play();
         audio_source.Play();
     }
 }
